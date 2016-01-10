@@ -8,7 +8,7 @@ import java.io.IOException;
  * Determines which floor santa will land on (code challenge #1)
  * @author Taylor Moon
  */
-public class FloorDeterminter {
+public class FloorDeterminer {
 
 	/**
 	 * The main method.
@@ -16,27 +16,30 @@ public class FloorDeterminter {
 	 * @throws IOException If an exception occurs while reading the input file.
 	 */
 	public static void main(String[] args) throws IOException {
-		int floor = 0;
-		int charPos = 0;
-		boolean enteredBasement = false;
 		BufferedReader reader = new BufferedReader(new FileReader("data/floordata.txt"));
-		String line = "";
-		while ((line = reader.readLine()) != null) {
-			for (Character character : line.toCharArray()) {
-				charPos++;
-				if (directionForCharacter(character) == 1) {
-					floor++;
-				} else {
-					floor--;
-					if (!enteredBasement && floor == -1) {
-						enteredBasement = true;
-						System.out.println("Entered basement at " + charPos + ".");
-					}
+		String line = reader.readLine();
+		int[] data = getFloorData(line);
+		System.out.println("Landed on floor " + data[0] + ", Entered basement at: " + data[1]);
+		reader.close();
+	}
+	
+	static int[] getFloorData(String input) {
+		int[] floorData = new int[2];
+		boolean enteredBasement = false;
+		int charPos = 0;
+		for (Character character : input.toCharArray()) {
+			charPos++;
+			if (directionForCharacter(character) == 1) {
+				floorData[0]++;
+			} else {
+				floorData[0]--;
+				if (!enteredBasement && floorData[0] == -1) {
+					floorData[1] = charPos;
+					enteredBasement = true;
 				}
 			}
 		}
-		System.out.println("Landed on floor " + floor);
-		reader.close();
+		return floorData;
 	}
 	
 	/**
