@@ -65,8 +65,6 @@ public class DeliveryDeterminer {
 			case 'v' :
 				newY--;
 				break;
-			default :
-				throw new IllegalArgumentException("Input command \"" + command + "\" isn't supported.");
 		}
 		santa.setX(newX);
 		santa.setY(newY);
