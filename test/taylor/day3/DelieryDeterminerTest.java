@@ -1,6 +1,7 @@
-package taylor;
+package taylor.day3;
 
 import junit.framework.Assert;
+import taylor.day3.DeliveryDeterminer;
 
 import org.junit.Test;
 

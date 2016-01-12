@@ -1,4 +1,4 @@
-package taylor;
+package taylor.day2;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -20,10 +20,11 @@ public class WrappingPaperCalculator {
 		BufferedReader reader = new BufferedReader(new FileReader("data/wrappingdata.txt"));
 		String line = "";
 		int ribbon = 0;
+		WrappingPaperDimensions dimensions;
 		while ((line = reader.readLine()) != null) {
-			int[] wrappingData = getWrappingPaperData(line);
-			feet += wrappingData[0];
-			ribbon += wrappingData[1];
+			dimensions = getWrappingPaperDimensions(line);
+			feet += dimensions.getPaperFeet();
+			ribbon += dimensions.getRibbonFeet();
 		}
 		System.out.println("Total square feet: " + feet + " " + ribbon);
 		reader.close();
@@ -36,14 +37,14 @@ public class WrappingPaperCalculator {
 	 * @param input The input dimensions.
 	 * @return The array.
 	 */
-	static int[] getWrappingPaperData(String input) {
+	static WrappingPaperDimensions getWrappingPaperDimensions(String input) {
 		String[] split = input.split("x");
 		int l = Integer.parseInt(split[0]);
 		int w = Integer.parseInt(split[1]);
 		int h = Integer.parseInt(split[2]);
-		int feet = (2 * l * w) + (2 * l * h) + (2 * w * h) + min(l * w, l * h, w * h);
-		int ribbon = (l * w * h) + 2 * (l + w + h - max(l, w, h));
-		return new int[]{feet, ribbon};
+		int paperLength = (2 * l * w) + (2 * l * h) + (2 * w * h) + min(l * w, l * h, w * h);
+		int ribbonLength = (l * w * h) + 2 * (l + w + h - max(l, w, h));
+		return new WrappingPaperDimensions(paperLength, ribbonLength);
 	}
 	
 	/**

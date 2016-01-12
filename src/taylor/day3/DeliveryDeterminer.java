@@ -1,4 +1,4 @@
-package taylor;
+package taylor.day3;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -95,58 +95,5 @@ public class DeliveryDeterminer {
 		n = (n ^ (n << 2)) & 0x33333333;
 		n = (n ^ (n << 1)) & 0x55555555;
 		return n;
-	}
-	
-	/**
-	 * Represents a Santa.
-	 * @author Taylor Moon
-	 */
-	public static class Santa {
-		
-		/**
-		 * The X coordinate.
-		 */
-		private int x;
-		
-		/**
-		 * The Y coordinate.
-		 */
-		private int y;
-		
-		/**
-		 * Constructs a new {@code Santa}.
-		 */
-		public Santa() {
-			x = 0;
-			y = 0;
-		}
-		
-		/**
-		 * @return x The X coordinate.
-		 */
-		public int getX() {
-			return x;
-		}
-		
-		/**
-		 * @return y The Y coordinate.
-		 */
-		public int getY() {
-			return y;
-		}
-		
-		/**
-		 * @param x The X coordinate to set.
-		 */
-		public void setX(int x) {
-			this.x = x;
-		}
-		
-		/**
-		 * @param y The Y coordinate to set.
-		 */
-		public void setY(int y) {
-			this.y = y;
-		}
 	}
 }

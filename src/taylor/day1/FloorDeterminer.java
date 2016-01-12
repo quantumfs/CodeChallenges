@@ -1,4 +1,4 @@
-package taylor;
+package taylor.day1;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -18,28 +18,33 @@ public class FloorDeterminer {
 	public static void main(String[] args) throws IOException {
 		BufferedReader reader = new BufferedReader(new FileReader("data/floordata.txt"));
 		String line = reader.readLine();
-		int[] data = getFloorData(line);
-		System.out.println("Landed on floor " + data[0] + ", Entered basement at: " + data[1]);
+		FloorInformation floorInfo = parseFloorInformation(line);
+		System.out.println("Landed on floor " + floorInfo.getFloorLandedOn() + ", Entered basement at: " + floorInfo.getIntialBasementEntracePoint());
 		reader.close();
 	}
 	
-	static int[] getFloorData(String input) {
-		int[] floorData = new int[2];
+	/**
+	 * Parses the floor information based on the given input string.
+	 * @param input The input.
+	 * @return The floor information that was parsed.
+	 */
+	static FloorInformation parseFloorInformation(String input) {
+		FloorInformation floorInfo = new FloorInformation();
 		boolean enteredBasement = false;
 		int charPos = 0;
 		for (Character character : input.toCharArray()) {
 			charPos++;
 			if (directionForCharacter(character) == 1) {
-				floorData[0]++;
+				floorInfo.increaseFloorLandedOn(1);
 			} else {
-				floorData[0]--;
-				if (!enteredBasement && floorData[0] == -1) {
-					floorData[1] = charPos;
+				floorInfo.increaseFloorLandedOn(-1);
+				if (!enteredBasement && floorInfo.getFloorLandedOn() == -1) {
+					floorInfo.setIntialBasementEntracePoint(charPos);
 					enteredBasement = true;
 				}
 			}
 		}
-		return floorData;
+		return floorInfo;
 	}
 	
 	/**
